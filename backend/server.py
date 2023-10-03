@@ -9,7 +9,6 @@ app = FastAPI() # initialize fast api server
 
 # pulls from .env file (needs to be in directory you run uvicorn from)
 CONNECTION_STRING = os.getenv("CONNECTION_STRING")
-print(CONNECTION_STRING)
 # Find necessary database collection from airbnb
 client = MongoClient(CONNECTION_STRING)
 dbname = client['sample_airbnb']
