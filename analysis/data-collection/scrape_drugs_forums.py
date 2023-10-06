@@ -74,5 +74,3 @@ def parsePost(url: str):
 def parseComments(Beautiful: soup) -> list:
 
     return []
-
-parsePost('https://drugs-forum.com/threads/another-forum-that-can-be-useful.357916/')
