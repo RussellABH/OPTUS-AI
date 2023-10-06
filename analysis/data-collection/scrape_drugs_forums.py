@@ -17,19 +17,17 @@ for section in table.find_all('li'):
     forum_links.append(r'https://drugs-forum.com/' + section.find('a')['href'].strip())
 
 url = forum_links[0]
-print(url)
+print("Looking at secion: " + url)
 page_content = requests.get(url, headers=headers).content
 page_soup = BeautifulSoup(page_content, 'html.parser')
 
 # return max amount of pages from Beautiful Soup
 def getMaxPages(soup: BeautifulSoup) -> int:
     elements = soup.find_all("span", {"class": 'pageNavHeader'})
-    print(len(elements))
     # 1 page if there is no page nav bar
     if len(elements) == 0:
         return 1
     text = elements[1].text # "Page 1 of X"
-    print(text)
     max_pages = int(text.split(" ")[-1])
     return max_pages
 
@@ -43,6 +41,7 @@ def parseSection(max_pages: int, url: str):
         parsePage(page_url, data) # parse each page
 
 # parse through entire page of posts in a section
+# example page - https://drugs-forum.com/forums/buprenorphine.406/page-2
 def parsePage(url: str, data: list):
     content = requests.get(url, headers=headers).content
     soup = BeautifulSoup(content, 'html.parser')
@@ -50,11 +49,17 @@ def parsePage(url: str, data: list):
     # last table are the rows containing the right posts
     table = soup.find_all('ol', {'class':'discussionListItems'})[-1]
     for row in table.find_all('li'):
-        post_url = row.find_all('a')
+        a_tags = row.find_all('h3')[0].find_all('a')
+        # last 'a' tag contains href
+        post_url = 'https://drugs-forum.com/' + a_tags[-1]['href']
 
+# extract all comments from the post in all of its pages
+# example page - https://drugs-forum.com/threads/how-to-start-a-liquid-taper-for-buprenorphine.355158/
 def parsePost(url: str):
-    pass
-
-
-pages = getMaxPages(page_soup)
-print(pages)
+    content = requests.get(url, headers=headers).content
+    soup = BeautifulSoup(content, 'html.parser')
+    num_pages = getMaxPages(soup)
+    for i in range(1, num_pages+1):
+        page_content = requests.get(url + 'page-1').content
+        soup = BeautifulSoup(page_content, 'html.parser')
+        # TODO - Extract features
