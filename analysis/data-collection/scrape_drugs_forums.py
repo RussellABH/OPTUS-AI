@@ -68,12 +68,16 @@ def parsePost(url: str) -> list:
     for i in range(1, num_pages + 1):
         page_content = requests.get(url + f'page-{i}').content
         soup = BeautifulSoup(page_content, 'html.parser')
-        comments = soup.find('ol').find_all('li')
+        comments = soup.find('ol').find_all('li', {'class': 'message'})
+
         for comment in comments:
             data = parseComments(comment)
-            # append feature at end -> if the comment is by the owner 1 else 0
+            # TODO - append feature at end -> if the comment is by the owner 1 else 0
 
 # parse a singular comment in a forum post
 def parseComments(soup: BeautifulSoup) -> list:
+    print(soup.find('span'))
     return []
+
 # test push
+parsePost(r'https://drugs-forum.com/threads/how-to-start-a-liquid-taper-for-buprenorphine.355158/')
