@@ -76,8 +76,7 @@ def parsePost(url: str) -> list:
 
 # parse a singular comment in a forum post
 def parseComments(soup: BeautifulSoup) -> list:
-    print(soup.find('span'))
+
     return []
 
 # test push
-parsePost(r'https://drugs-forum.com/threads/how-to-start-a-liquid-taper-for-buprenorphine.355158/')
