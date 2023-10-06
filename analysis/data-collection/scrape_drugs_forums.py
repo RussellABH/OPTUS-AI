@@ -7,19 +7,17 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0.'
 }
 
-content = requests.get(base_link, headers=headers).content
+# content = requests.get(base_link, headers=headers).content
+#
+# soup = BeautifulSoup(content, 'html.parser')
+# # get table containing different drug sections
+# table = soup.select_one('ol.nodeList.sectionMain')
+# forum_links = []  # store links to start of discussion forums
+# for section in table.find_all('li'):
+#     forum_links.append(r'https://drugs-forum.com/' + section.find('a')['href'].strip())
 
-soup = BeautifulSoup(content, 'html.parser')
-# get table containing different drug sections
-table = soup.select_one('ol.nodeList.sectionMain')
-forum_links = []  # store links to start of discussion forums
-for section in table.find_all('li'):
-    forum_links.append(r'https://drugs-forum.com/' + section.find('a')['href'].strip())
-
-url = forum_links[0]
+url = "https://drugs-forum.com/forums/buprenorphine.406/"
 print("Looking at secion: " + url)
-page_content = requests.get(url, headers=headers).content
-page_soup = BeautifulSoup(page_content, 'html.parser')
 
 
 # return max amount of pages from Beautiful Soup
@@ -59,18 +57,23 @@ def parsePage(url: str, data: list):
 
 # extract all comments from the post in all of its pages
 # example page - https://drugs-forum.com/threads/how-to-start-a-liquid-taper-for-buprenorphine.355158/
-def parsePost(url: str):
+def parsePost(url: str) -> list:
     content = requests.get(url, headers=headers).content
     soup = BeautifulSoup(content, 'html.parser')
     num_pages = getMaxPages(soup)
+
+    # find OP of the post
+    OP_usr = soup.find('ol').find('li').find('a', {'class':'username'}).text
+
     for i in range(1, num_pages + 1):
         page_content = requests.get(url + f'page-{i}').content
         soup = BeautifulSoup(page_content, 'html.parser')
         comments = soup.find('ol').find_all('li')
         for comment in comments:
-            data = parseComments()
+            data = parseComments(comment)
+            # append feature at end -> if the comment is by the owner 1 else 0
 
 # parse a singular comment in a forum post
-def parseComments(Beautiful: soup) -> list:
+def parseComments(soup: BeautifulSoup) -> list:
     return []
 # test push
