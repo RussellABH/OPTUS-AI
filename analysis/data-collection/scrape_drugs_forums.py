@@ -17,7 +17,7 @@ headers = {
 #     forum_links.append(r'https://drugs-forum.com/' + section.find('a')['href'].strip())
 
 url = "https://drugs-forum.com/forums/buprenorphine.406/"
-print("Looking at secion: " + url)
+print("Looking at section: " + url)
 
 
 # return max amount of pages from Beautiful Soup
@@ -56,10 +56,12 @@ def parsePage(url: str, data: list):
 
 
 # extract all comments from the post in all of its pages
-# example page - https://drugs-forum.com/threads/how-to-start-a-liquid-taper-for-buprenorphine.355158/
+ex_page = 'https://drugs-forum.com/threads/how-to-start-a-liquid-taper-for-buprenorphine.355158/'
 def parsePost(url: str) -> list:
-    content = requests.get(url, headers=headers).content
-    soup = BeautifulSoup(content, 'html.parser')
+    content_ = requests.get(url, headers=headers)
+    content_.encoding = 'utf-8'
+    content_ = content_.content
+    soup = BeautifulSoup(content_, 'html.parser')
     num_pages = getMaxPages(soup)
 
     # find OP of the post
@@ -68,12 +70,36 @@ def parsePost(url: str) -> list:
     for i in range(1, num_pages + 1):
         page_content = requests.get(url + f'page-{i}').content
         soup = BeautifulSoup(page_content, 'html.parser')
-        comments = soup.find('ol').find_all('li')
+        comments = soup.find('ol').find_all('li', {'class': 'message'})
+        post_title_info = soup.find('div', {'titleBar'}).find('h1').text
+        post_type = post_title_info.split(' ', 1)[0].strip()
+        post_title = post_title_info.split(' ', 1)[1].strip()
         for comment in comments:
-            data = parseComments(comment)
+            data = parseComments(comment, post_type, post_title)
+            print(data)
             # append feature at end -> if the comment is by the owner 1 else 0
 
 # parse a singular comment in a forum post
-def parseComments(soup: BeautifulSoup) -> list:
+def parseComments(soup: BeautifulSoup, post_type, post_title) -> list:
+    try:
+        date = soup.find('span', {'class' : 'DateTime'}).text
+        username = soup.find('a', {'class': 'username'}).text
+        post_content = soup.find('blockquote', {'class': 'messageText SelectQuoteContainer ugc baseHtml'}).text.strip()
+        rank = soup.find('em', {'class': 'userBanner bannerHidden wrapped'}).text
+        rep_points = soup.find('dl', {'class': 'pairsInline'}).find('strong').text
+        messages = soup.find('dl', {'class': 'pairsJustified xbMessages'}).find('a', {'class': 'concealed'}).text
+        join_date = soup.find('dl', {'class': 'pairsJustified xbJoinDate'}).find('dd').text
+        country_of_origin = soup.find_all('dl', {'class', 'pairsJustified'})[2].text.strip()
+
+        # list of strings return format: [username, post content, rank, rep points, messages, join date, country of origin,
+        #                                 date of comment, post name, post type]
+
+        return [username, post_content, rank, rep_points, messages, join_date, country_of_origin, date, 
+                post_title, post_type]
+
+    except Exception as e:
+        print(e)
     return []
-# test push
+
+
+parsePost(ex_page)
