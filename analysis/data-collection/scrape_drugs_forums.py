@@ -31,12 +31,12 @@ def getMaxPages(soup: BeautifulSoup) -> int:
     return max_pages
 
 # parse section for each opoiod
-def parseOpoiods():
+def parseOpioids():
     opoiods = ['buprenorphine.406/','codeine.161/','heroin.123/','hydrocodone.396/','hydromorphone.403/',
                'methadone.397/','morphine.124/','opium-poppy.162/','oxycodone.398/','oxymorphone.404/','tramadol.399/']
     for opoiod in opoiods:
         url = 'https://drugs-forum.com/forums/' + opoiod
-        parseSection(url)
+        parseSection(url, url.split('.')[0] + '.txt')
 
 
 
