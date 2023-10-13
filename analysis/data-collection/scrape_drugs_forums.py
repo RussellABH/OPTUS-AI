@@ -20,7 +20,6 @@ url = "https://drugs-forum.com/forums/buprenorphine.406/"
 print("Looking at section: " + url)
 data = []
 
-
 # return max amount of pages from Beautiful Soup
 def getMaxPages(soup: BeautifulSoup) -> int:
     elements = soup.find_all("span", {"class": 'pageNavHeader'})
@@ -30,6 +29,15 @@ def getMaxPages(soup: BeautifulSoup) -> int:
     text = elements[1].text  # "Page 1 of X"
     max_pages = int(text.split(" ")[-1])
     return max_pages
+
+# parse section for each opoiod
+def parseOpoiods():
+    opoiods = ['buprenorphine.406/','codeine.161/','heroin.123/','hydrocodone.396/','hydromorphone.403/',
+               'methadone.397/','morphine.124/','opium-poppy.162/','oxycodone.398/','oxymorphone.404/','tramadol.399/']
+    for opoiod in opoiods:
+        url = 'https://drugs-forum.com/forums/' + opoiod
+        parseSection(url)
+
 
 
 # parse a section, gathering data from every post once we know page count
