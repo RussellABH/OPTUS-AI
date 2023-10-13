@@ -1,24 +1,25 @@
 import requests, time, json, random
 from bs4 import BeautifulSoup
 
-base_link = r'https://drugs-forum.com/forums/opiates-opioids.33/'
+#
+# Calling function parseOpioids creates a file for every given section, which contains all comments of all posts in that
+# section, outputted as json data
+#
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0.'
 }
 
-# content = requests.get(base_link, headers=headers).content
-#
-# soup = BeautifulSoup(content, 'html.parser')
-# # get table containing different drug sections
-# table = soup.select_one('ol.nodeList.sectionMain')
-# forum_links = []  # store links to start of discussion forums
-# for section in table.find_all('li'):
-#     forum_links.append(r'https://drugs-forum.com/' + section.find('a')['href'].strip())
+data = [] # master list for data collection
 
-url = "https://drugs-forum.com/forums/buprenorphine.406/"
-print("Looking at section: " + url)
-data = []
+# parse section for each opoiod (Main function to call)
+def parseOpioids():
+    opoiods = ['buprenorphine.406/','codeine.161/','heroin.123/','hydrocodone.396/','hydromorphone.403/',
+               'methadone.397/','morphine.124/','opium-poppy.162/','oxycodone.398/','oxymorphone.404/','tramadol.399/']
+    for opoiod in opoiods:
+        url = 'https://drugs-forum.com/forums/' + opoiod
+        parseSection(url, url.split('.')[0] + '.txt')
+        data.clear()
 
 # return max amount of pages from Beautiful Soup
 def getMaxPages(soup: BeautifulSoup) -> int:
@@ -30,29 +31,23 @@ def getMaxPages(soup: BeautifulSoup) -> int:
     max_pages = int(text.split(" ")[-1])
     return max_pages
 
-# parse section for each opoiod
-def parseOpioids():
-    opoiods = ['buprenorphine.406/','codeine.161/','heroin.123/','hydrocodone.396/','hydromorphone.403/',
-               'methadone.397/','morphine.124/','opium-poppy.162/','oxycodone.398/','oxymorphone.404/','tramadol.399/']
-    for opoiod in opoiods:
-        url = 'https://drugs-forum.com/forums/' + opoiod
-        parseSection(url, url.split('.')[0] + '.txt')
-
-
-
 # parse a section, gathering data from every post once we know page count
 # url is the base url for the site, e.g.
 # https://drugs-forum.com/forums/buprenorphine.406/
-def parseSection(url: str):
-    url = 'https://drugs-forum.com/forums/buprenorphine.406/'
+# filename is the file you want to add data to
+def parseSection(url: str, filename: str) -> None:
     content = requests.get(url, headers=headers).content
     soup = BeautifulSoup(content,'html.parser')
     max_pages = getMaxPages(soup)
-    print(max_pages)
-    for i in range(1, 2):
+    print(f"Pages in this section: {max_pages}")
+    for i in range(1, max_pages):
         print(f"Page {i}")
         page_url = url + "page-" + str(i)
         parsePage(page_url)  # parse each page
+        # write data to file after every page
+        with open(filename, 'w') as file:
+            print(f'Writing data to {filename}')
+            file.write(json.dumps(data, indent=4))
 
 
 # parse through entire page of posts in a section
@@ -125,7 +120,5 @@ def parseComments(soup: BeautifulSoup, post_type, post_title) -> dict:
 
 
 ex_page = 'https://drugs-forum.com/forums/buprenorphine.406/'
-parseSection(ex_page)
-print(len(data))
-with open('test.txt', 'w') as file:
-    file.write(json.dumps(data, indent=4))
+parseOpioids()
+
