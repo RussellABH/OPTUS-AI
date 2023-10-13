@@ -1,12 +1,13 @@
-import { BrowserRouter } from 'react-router-dom'
-import Navbar from './components/Navbar'
+import React  from 'react';
+import './Home.css';
 
 const Home = () => {
   return (
-    <BrowserRouter>
-      <Navbar />
-    </BrowserRouter>
+    <header className="title">
+      <p>OPTUS-AI</p>
+      <p>OPiate Tracker Using Social Media Signals and AI</p>
+    </header>
   )
 }
 
-export default Home
+export default Home;
