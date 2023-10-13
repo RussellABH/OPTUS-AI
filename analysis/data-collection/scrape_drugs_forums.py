@@ -1,4 +1,4 @@
-import requests, time
+import requests, time, json
 from bs4 import BeautifulSoup
 
 base_link = r'https://drugs-forum.com/forums/opiates-opioids.33/'
@@ -18,7 +18,7 @@ headers = {
 
 url = "https://drugs-forum.com/forums/buprenorphine.406/"
 print("Looking at section: " + url)
-
+data = []
 
 # return max amount of pages from Beautiful Soup
 def getMaxPages(soup: BeautifulSoup) -> int:
@@ -43,7 +43,7 @@ def parseSection(max_pages: int, url: str):
 
 # parse through entire page of posts in a section
 # example page - https://drugs-forum.com/forums/buprenorphine.406/page-2
-def parsePage(url: str, data: list):
+def parsePage(url: str):
     content = requests.get(url, headers=headers).content
     soup = BeautifulSoup(content, 'html.parser')
 
@@ -56,7 +56,6 @@ def parsePage(url: str, data: list):
 
 
 # extract all comments from the post in all of its pages
-ex_page = 'https://drugs-forum.com/threads/how-to-start-a-liquid-taper-for-buprenorphine.355158/'
 def parsePost(url: str) -> list:
     content_ = requests.get(url, headers=headers)
     content_.encoding = 'utf-8'
@@ -75,9 +74,7 @@ def parsePost(url: str) -> list:
         post_type = post_title_info.split(' ', 1)[0].strip()
         post_title = post_title_info.split(' ', 1)[1].strip()
         for comment in comments:
-            data = parseComments(comment, post_type, post_title)
-            print(data)
-            # append feature at end -> if the comment is by the owner 1 else 0
+            data.append(parseComments(comment, post_type, post_title))
 
 # parse a singular comment in a forum post
 def parseComments(soup: BeautifulSoup, post_type, post_title) -> list:
@@ -94,12 +91,15 @@ def parseComments(soup: BeautifulSoup, post_type, post_title) -> list:
         # list of strings return format: [username, post content, rank, rep points, messages, join date, country of origin,
         #                                 date of comment, post name, post type]
 
-        return [username, post_content, rank, rep_points, messages, join_date, country_of_origin, date, 
-                post_title, post_type]
+        return {"username":username, "post_content":post_content, "rank":rank, "rep_points":rep_points, "messages":messages,
+                "join_date":join_date, "country_of_origin":country_of_origin, "date":date, "post_title":post_title,
+                "post_type":post_type}
 
     except Exception as e:
         print(e)
     return []
 
-
+ex_page = 'https://drugs-forum.com/threads/how-to-start-a-liquid-taper-for-buprenorphine.355158/'
 parsePost(ex_page)
+with open('test.txt', 'w') as file:
+    file.write(json.dumps(data, indent=4))
