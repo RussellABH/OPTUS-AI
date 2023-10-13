@@ -1,0 +1,42 @@
+Try 25% to be much more accurate.
+spacytextblob:0.45000000000000007, asent:0.45000000000000007, spacysentiment:(0.32006773352622986, 0.03283095359802246):
+ ------------------------------
+
+If you took 750mg of hydrocodone you'll probably die.
+spacytextblob:0.0, asent:0.0, spacysentiment:(0.3367825746536255, 0.22813107073307037):
+ ------------------------------
+
+When i was using them heavily I paid $0.50 per mg, so $20 for a 40mg which were the most common.
+
+Even that was outrageously expensive, heroin was much much cheaper but had to get it from other people.
+spacytextblob:-0.07083333333333333, asent:-0.07083333333333333, spacysentiment:(0.09569535404443741, 0.008628192357718945):
+ ------------------------------
+
+I sure hope you'd already be high before going about that type of application... lols
+spacytextblob:0.33, asent:0.33, spacysentiment:(0.9341040849685669, 0.046780847012996674):
+ ------------------------------
+
+It made my stomach bleed, urgh. I'll be using your technique next time. I've also got co-codamol instead of Nurofen+.
+spacytextblob:0.0, asent:0.0, spacysentiment:(0.44439032673835754, 0.42698681354522705):
+ ------------------------------
+
+I've never used it so I can't say if I agree or disagree, but I appreciate the viewpoint.
+spacytextblob:0.0, asent:0.0, spacysentiment:(0.8708206415176392, 0.06585898250341415):
+ ------------------------------
+
+i actually live in anaheim but my girlfriend has a studio in hollywood, so that's where i spend most of my time
+spacytextblob:0.3181818181818182, asent:0.3181818181818182, spacysentiment:(0.43134066462516785, 0.3570050597190857):
+ ------------------------------
+
+oh man.. it's such a bitch to deal with... if you dont shoot it while it's still warm.. it gels... i've had it gel midway through a shot and i still shot it anyways and obviously it didn't like flow right into the vein... it was so disgustingly painful and gross afterwards.
+spacytextblob:0.030952380952380953, asent:0.030952380952380953, spacysentiment:(0.12890835106372833, 0.8634198904037476):
+ ------------------------------
+
+Will all supermarkets carry the seeds in bulk or should I try a supermarket more oriented towards health food/organic? 
+spacytextblob:0.5, asent:0.5, spacysentiment:(0.6349997520446777, 0.2163807600736618):
+ ------------------------------
+
+Have you ever just taken 25mg of diph before dosing dude? There are no deleriant like effects- just greatly increases the nod, and for better or for worse lowers the itching. It's disposable for my nodding play-set hahhahah. 
+spacytextblob:0.3, asent:0.3, spacysentiment:(0.9527800679206848, 0.04713323712348938):
+ ------------------------------
+
