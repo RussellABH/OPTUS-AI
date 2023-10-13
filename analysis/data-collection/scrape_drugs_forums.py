@@ -1,4 +1,4 @@
-import requests, time, json
+import requests, time, json, random
 from bs4 import BeautifulSoup
 
 base_link = r'https://drugs-forum.com/forums/opiates-opioids.33/'
@@ -20,6 +20,7 @@ url = "https://drugs-forum.com/forums/buprenorphine.406/"
 print("Looking at section: " + url)
 data = []
 
+
 # return max amount of pages from Beautiful Soup
 def getMaxPages(soup: BeautifulSoup) -> int:
     elements = soup.find_all("span", {"class": 'pageNavHeader'})
@@ -34,11 +35,16 @@ def getMaxPages(soup: BeautifulSoup) -> int:
 # parse a section, gathering data from every post once we know page count
 # url is the base url for the site, e.g.
 # https://drugs-forum.com/forums/buprenorphine.406/
-def parseSection(max_pages: int, url: str):
-    data = []
-    for i in range(1, 1):
-        page_url = url + "page-" + i
-        parsePage(page_url, data)  # parse each page
+def parseSection(url: str):
+    url = 'https://drugs-forum.com/forums/buprenorphine.406/'
+    content = requests.get(url, headers=headers).content
+    soup = BeautifulSoup(content,'html.parser')
+    max_pages = getMaxPages(soup)
+    print(max_pages)
+    for i in range(1, 2):
+        print(f"Page {i}")
+        page_url = url + "page-" + str(i)
+        parsePage(page_url)  # parse each page
 
 
 # parse through entire page of posts in a section
@@ -46,25 +52,25 @@ def parseSection(max_pages: int, url: str):
 def parsePage(url: str):
     content = requests.get(url, headers=headers).content
     soup = BeautifulSoup(content, 'html.parser')
-
     # last table are the rows containing the right posts
     table = soup.find_all('ol', {'class': 'discussionListItems'})[-1]
     for row in table.find_all('li'):
         a_tags = row.find_all('h3')[0].find_all('a')
         # last 'a' tag contains href
         post_url = 'https://drugs-forum.com/' + a_tags[-1]['href']
+        print(post_url)
+        parsePost(post_url)
+
+        time.sleep(random.uniform(1, 3)) # wait 1-3s before looking at each post
 
 
 # extract all comments from the post in all of its pages
-def parsePost(url: str) -> list:
+def parsePost(url: str) -> None:
     content_ = requests.get(url, headers=headers)
     content_.encoding = 'utf-8'
     content_ = content_.content
     soup = BeautifulSoup(content_, 'html.parser')
     num_pages = getMaxPages(soup)
-
-    # find OP of the post
-    OP_usr = soup.find('ol').find('li').find('a', {'class':'username'}).text
 
     for i in range(1, num_pages + 1):
         page_content = requests.get(url + f'page-{i}').content
@@ -75,31 +81,43 @@ def parsePost(url: str) -> list:
         post_title = post_title_info.split(' ', 1)[1].strip()
         for comment in comments:
             data.append(parseComments(comment, post_type, post_title))
+        time.sleep(random.random()) # wait a random amount 0-1s
+
 
 # parse a singular comment in a forum post
-def parseComments(soup: BeautifulSoup, post_type, post_title) -> list:
+def parseComments(soup: BeautifulSoup, post_type, post_title) -> dict:
     try:
-        date = soup.find('span', {'class' : 'DateTime'}).text
+        date = soup.find('span', {'class': 'DateTime'}).text
         username = soup.find('a', {'class': 'username'}).text
         post_content = soup.find('blockquote', {'class': 'messageText SelectQuoteContainer ugc baseHtml'}).text.strip()
-        rank = soup.find('em', {'class': 'userBanner bannerHidden wrapped'}).text
+        rank = None
+        try:
+            rank = soup.find('em', {'class': 'userBanner bannerHidden wrapped'}).text
+        except Exception as e:
+            print("No rank for this comment")
         rep_points = soup.find('dl', {'class': 'pairsInline'}).find('strong').text
         messages = soup.find('dl', {'class': 'pairsJustified xbMessages'}).find('a', {'class': 'concealed'}).text
         join_date = soup.find('dl', {'class': 'pairsJustified xbJoinDate'}).find('dd').text
-        country_of_origin = soup.find_all('dl', {'class', 'pairsJustified'})[2].text.strip()
-
+        country_of_origin = None
+        try:
+            country_of_origin = soup.find_all('dl', {'class', 'pairsJustified'})[2].text.strip()
+        except Exception as e:
+            print("No country of origin")
         # list of strings return format: [username, post content, rank, rep points, messages, join date, country of origin,
         #                                 date of comment, post name, post type]
 
-        return {"username":username, "post_content":post_content, "rank":rank, "rep_points":rep_points, "messages":messages,
-                "join_date":join_date, "country_of_origin":country_of_origin, "date":date, "post_title":post_title,
-                "post_type":post_type}
+        return {"username": username, "post_content": post_content, "rank": rank, "rep_points": rep_points,
+                "messages": messages,
+                "join_date": join_date, "country_of_origin": country_of_origin, "date": date, "post_title": post_title,
+                "post_type": post_type}
 
     except Exception as e:
         print(e)
     return []
 
-ex_page = 'https://drugs-forum.com/threads/how-to-start-a-liquid-taper-for-buprenorphine.355158/'
-parsePost(ex_page)
+
+ex_page = 'https://drugs-forum.com/forums/buprenorphine.406/'
+parseSection(ex_page)
+print(len(data))
 with open('test.txt', 'w') as file:
     file.write(json.dumps(data, indent=4))
