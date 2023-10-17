@@ -18,8 +18,9 @@ def parseOpioids():
                'methadone.397/','morphine.124/','opium-poppy.162/','oxycodone.398/','oxymorphone.404/','tramadol.399/']
     for opoiod in opoiods:
         url = 'https://drugs-forum.com/forums/' + opoiod
-        parseSection(url, url.split('.')[0] + '.txt')
+        parseSection(url, opoiod.split('.')[0] + '.txt')
         data.clear()
+        break
 
 # return max amount of pages from Beautiful Soup
 def getMaxPages(soup: BeautifulSoup) -> int:
