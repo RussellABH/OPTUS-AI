@@ -92,7 +92,13 @@ def parseComments(soup: BeautifulSoup, post_type, post_title) -> dict:
     try:
         date = soup.find('span', {'class': 'DateTime'}).text
         username = soup.find('a', {'class': 'username'}).text
-        post_content = soup.find('blockquote', {'class': 'messageText SelectQuoteContainer ugc baseHtml'}).text.strip()
+        post_content = soup.find('blockquote', {'class': 'messageText SelectQuoteContainer ugc baseHtml'})
+        try:
+            soup.find('div', {'class': 'bbCodeBlock bbCodeQuote'}).decompose()
+            soup.find('div', {'class': 'messageTextEndMarker'}).decompose()
+        except Exception as e:
+            pass
+        post_content = post_content.text.strip()
         rank = None
         try:
             rank = soup.find('em', {'class': 'userBanner bannerHidden wrapped'}).text
@@ -121,4 +127,3 @@ def parseComments(soup: BeautifulSoup, post_type, post_title) -> dict:
 
 ex_page = 'https://drugs-forum.com/forums/buprenorphine.406/'
 parseOpioids()
-
