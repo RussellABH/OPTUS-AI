@@ -1,3 +1,6 @@
+# Don't upload models
+*-model
+
 # Logs
 logs
 *.log
