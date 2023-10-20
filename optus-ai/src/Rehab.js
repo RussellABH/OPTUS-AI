@@ -9,22 +9,22 @@ import IconButton from '@mui/material/IconButton';
 
 const Rehab = () => {
   return (
-    <div>
+    <div className='background'>
       <header className="title">
         <p>Rehab Centers</p>
       </header>
-      <Paper style={{ borderRadius: 100, padding: '20px', width: 1300, margin: '0 auto', marginTop: '10px' }}>
-        <header className="search">
-          <p>I am seeking help for </p>
-          <Select id="addiction" defaultValue={1}>
+      <Paper style={{ borderRadius: 100, padding: '20px', width: 850, margin: '0 auto'}}>
+        <div className="search">
+          <p>I am seeking help for</p>
+          <Select id="addiction" defaultValue={1} style={{marginLeft: '10px', marginRight: '10px'}}>
             <MenuItem value={1}>Heroin Addiction</MenuItem>
           </Select>
-          <p> in </p>
-          <TextField id="location" label="location" variant="outlined" defaultValue="New York"/>
-          <IconButton aria-label="search" color="primary">
-            <SearchIcon />
+          <p>in</p>
+          <TextField id="location" label="Location" variant="outlined" defaultValue="New York" style={{marginLeft: '10px', marginRight: '10px'}}/>
+          <IconButton aria-label="search" color="primary" size='large'>
+            <SearchIcon style={{fontSize: '35px'}}/>
           </IconButton>
-        </header>
+        </div>
       </Paper>
     </div>
   )
