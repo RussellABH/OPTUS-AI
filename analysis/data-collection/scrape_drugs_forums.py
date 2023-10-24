@@ -16,11 +16,11 @@ data = [] # master list for data collection
 def parseOpioids():
     opoiods = ['buprenorphine.406/','codeine.161/','heroin.123/','hydrocodone.396/','hydromorphone.403/',
                'methadone.397/','morphine.124/','opium-poppy.162/','oxycodone.398/','oxymorphone.404/','tramadol.399/']
+
     for opoiod in opoiods:
         url = 'https://drugs-forum.com/forums/' + opoiod
         parseSection(url, opoiod.split('.')[0] + '.txt')
         data.clear()
-        break
 
 # return max amount of pages from Beautiful Soup
 def getMaxPages(soup: BeautifulSoup) -> int:
@@ -81,10 +81,19 @@ def parsePost(url: str) -> None:
         soup = BeautifulSoup(page_content, 'html.parser')
         comments = soup.find('ol').find_all('li', {'class': 'message'})
         post_title_info = soup.find('div', {'titleBar'}).find('h1').text
-        post_type = post_title_info.split(' ', 1)[0].strip()
-        post_title = post_title_info.split(' ', 1)[1].strip()
+        post_title_info2 = str(soup.find('div', {'class': 'titleBar'}).find('h1')).strip()
+        if 'span' in post_title_info2: #includes post type and title
+            pTitle = post_title_info2.split('span')[2]
+            pTitle = pTitle[2:len(pTitle)-5].strip()
+            pType = soup.find('div', {'class': 'titleBar'}).find('span', {'class': 'prefix prefixPrimary'}).text
+        else: #includes just post title
+            pType = ''
+            pTitle = soup.find('div', {'class': 'titleBar'}).find('h1').text
+
+        #soup.find('div', {'class': 'bbCodeBlock bbCodeQuote'}).decompose()
+
         for comment in comments:
-            data.append(parseComments(comment, post_type, post_title))
+            data.append(parseComments(comment, pType, pTitle))
         time.sleep(random.random()) # wait a random amount 0-1s
 
 
@@ -104,7 +113,7 @@ def parseComments(soup: BeautifulSoup, post_type, post_title) -> dict:
         try:
             rank = soup.find('em', {'class': 'userBanner bannerHidden wrapped'}).text
         except Exception as e:
-            print("No rank for this comment")
+            pass # print("No rank for this comment")
         rep_points = soup.find('dl', {'class': 'pairsInline'}).find('strong').text
         messages = soup.find('dl', {'class': 'pairsJustified xbMessages'}).find('a', {'class': 'concealed'}).text
         join_date = soup.find('dl', {'class': 'pairsJustified xbJoinDate'}).find('dd').text
@@ -112,7 +121,7 @@ def parseComments(soup: BeautifulSoup, post_type, post_title) -> dict:
         try:
             country_of_origin = soup.find_all('dl', {'class', 'pairsJustified'})[2].text.strip()
         except Exception as e:
-            print("No country of origin")
+            pass # print("No country of origin")
         # list of strings return format: [username, post content, rank, rep points, messages, join date, country of origin,
         #                                 date of comment, post name, post type]
 
@@ -122,7 +131,7 @@ def parseComments(soup: BeautifulSoup, post_type, post_title) -> dict:
                 "post_type": post_type}
 
     except Exception as e:
-        print(e)
+        pass # print(e)
     return []
 
 
