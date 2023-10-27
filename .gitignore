@@ -1,5 +1,6 @@
-# Don't upload models
+# Don't upload saved BERT stuff
 *-model
+*.pkl
 
 # Logs
 logs
