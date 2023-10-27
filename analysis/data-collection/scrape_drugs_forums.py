@@ -16,7 +16,6 @@ data = [] # master list for data collection
 def parseOpioids():
     opoiods = ['buprenorphine.406/','codeine.161/','heroin.123/','hydrocodone.396/','hydromorphone.403/',
                'methadone.397/','morphine.124/','opium-poppy.162/','oxycodone.398/','oxymorphone.404/','tramadol.399/']
-
     for opoiod in opoiods:
         url = 'https://drugs-forum.com/forums/' + opoiod
         parseSection(url, opoiod.split('.')[0] + '.txt')
@@ -79,7 +78,10 @@ def parsePost(url: str) -> None:
     for i in range(1, num_pages + 1):
         page_content = requests.get(url + f'page-{i}').content
         soup = BeautifulSoup(page_content, 'html.parser')
-        comments = soup.find('ol').find_all('li', {'class': 'message'})
+        try:
+            comments = soup.find('ol').find_all('li', {'class': 'message'})
+        except Exception as e:
+            comments = []
         post_title_info = soup.find('div', {'titleBar'}).find('h1').text
         post_title_info2 = str(soup.find('div', {'class': 'titleBar'}).find('h1')).strip()
         if 'span' in post_title_info2: #includes post type and title
@@ -135,5 +137,5 @@ def parseComments(soup: BeautifulSoup, post_type, post_title) -> dict:
     return []
 
 
-ex_page = 'https://drugs-forum.com/forums/buprenorphine.406/'
+ex_page = 'https://drugs-forum.com/forums/hydrocodone.396/page-5'
 parseOpioids()
