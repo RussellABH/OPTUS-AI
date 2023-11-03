@@ -1,10 +1,16 @@
-.About {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
+.about-title 
+{
+  font-size: calc(20px + 2vmin);
+}
+  
+.about-description
+{
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
