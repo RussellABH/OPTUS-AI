@@ -3,20 +3,26 @@ import Fab from '@mui/material/Fab';
 import './Home.css';
 import BarChart from './Chart';
 //import * as data1 from '../../analysis/2011_frequencies/january.json';
-import * as data1 from './january.json';
+import data1 from './january.json';
 
 const Home = () => {
   const [showViz1, setShowViz1] = React.useState(false);
   const [showViz2, setShowViz2] = React.useState(false);
-
+  
+  // Transform the object data into an array of objects
+  const dataArray1 = Object.entries(data1)
+  .map(([word, frequency]) => ({ word, frequency }))
+  .sort((a, b) => b.frequency - a.frequency);
+  
   const handleViz1 = () => {
     setShowViz1(!showViz1);
   }
   const handleViz2 = () => {
-    console.log(data1);
+
+    console.log(dataArray1);
     setShowViz2(!showViz2);
   }
-  const dataArray1 = Object.entries(data1).map(([word, frequency]) => ({ word, frequency }));
+  
   return (
     <div className='background'>
       <header className="title">

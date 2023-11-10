@@ -8,42 +8,50 @@ const BarChart = ({ data }) => {
   const svgRef = useRef();
 
   useEffect(() => {
-    const width = 1000;
-    const height = 400;
+    const width = 1500;
+    const height = 1000;
     const svg = d3.select(svgRef.current)
-    .attr('viewBox', `0 0 ${width} ${height}`)
-    .attr('preserveAspectRatio', 'xMidYMid meet');
-  
-    // Set up scales
-    const xScale = d3.scaleBand()
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('preserveAspectRatio', 'xMidYMid meet');
+
+    // Set up scales for a horizontal bar chart
+    const yScale = d3.scaleBand()
       .domain(data.map(d => d.word))
-      .range([0, width])
+      .range([0, height])
       .padding(0.1);
-  
-    const yScale = d3.scaleLinear()
+
+    const xScale = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.frequency)])
-      .range([height, 0]);
-  
+      .range([0, width / 2]);
+
     // Create and style the bars
     svg.selectAll('rect')
       .data(data)
       .enter()
       .append('rect')
-      .attr('x', d => xScale(d.word))
-      .attr('y', d => yScale(d.frequency))
-      .attr('width', xScale.bandwidth())
-      .attr('height', d => height - yScale(d.frequency))
+      .attr('x', 0)
+      .attr('y', d => yScale(d.word))
+      .attr('width', d => xScale(d.frequency))
+      .attr('height', yScale.bandwidth())
       .attr('fill', 'steelblue');
-  
+
+    // Add text labels for each bar
+    svg.selectAll('text')
+      .data(data)
+      .enter()
+      .append('text')
+      .text(d => d.word)
+      .attr('x', 5) // Adjust the position as needed
+      .attr('y', d => yScale(d.word) + yScale.bandwidth() / 2)
+      .style('alignment-baseline', 'middle');
+
     // Add axes
     svg.append('g')
-      .call(d3.axisBottom(xScale))
-      .attr('transform', `translate(0, ${height})`);
-  
-    svg.append('g')
       .call(d3.axisLeft(yScale));
-  }, [data]);
 
+    svg.append('g')
+      .call(d3.axisBottom(xScale).ticks(20)); // Adjust the number of ticks as needed, x scale
+  }, [data]);
 
   return (
     <div className="word-frequency-chart">
@@ -53,4 +61,6 @@ const BarChart = ({ data }) => {
 };
 
 export default BarChart;
-  
+
+
+ //style={{alignitems: 'center', justifycontent: 'start'}}>
