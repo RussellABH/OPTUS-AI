@@ -13,7 +13,7 @@ CONNECTION_STRING = os.getenv("CONNECTION_STRING")
 # Find necessary database collection
 client = MongoClient(CONNECTION_STRING)
 dbname = client['optus_ai']
-collection = dbname['rehab_centers']
+rehab_centers = dbname['rehab_centers']
 
 
 @app.get("/")  # default root
@@ -24,7 +24,7 @@ async def root():
 # test the mongodb server, extract rehab data and display it as text
 @app.get("/rehabtest", response_class=PlainTextResponse)
 async def db():
-    items = collection.find()  # list of all entries in collection
+    items = rehab_centers.find()  # list of all entries in collection
     item = items[788]  # one entry, dict format
     string = ''
     string += item['name'] + '\n'
@@ -39,6 +39,39 @@ async def db():
     return string
 
 
-@app.get("nearest_rehab")
-async def nearest_rehab():
-    pass
+@app.get("/nearest_rehab")
+async def nearestRehab(lat: int, lng: int, limit: int):
+
+    pointer = rehab_centers.find({
+        "loc": {
+            "$near": {
+                "$geometry": {
+                    "type": "Point",
+                    "coordinates": [lng, lat]
+                }
+            }
+        }
+    }).limit(limit)
+
+    data = []
+    for i in pointer:
+        entry = {}
+        entry['name'] = i['b_name']
+        entry['address'] = ''
+        try:
+            entry['address'] = i['formatted_address']
+        except Exception:
+            pass
+        entry['rating'] = ''
+        try:
+            entry['rating'] = i['rating']
+        except Exception:
+            pass
+        entry['phone_number'] = ''
+        try:
+            i['formatted_phone_number']
+        except Exception:
+            pass
+        data.append(entry)
+    return data
+
