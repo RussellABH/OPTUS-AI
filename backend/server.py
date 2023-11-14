@@ -57,21 +57,38 @@ async def nearestRehab(lat: int, lng: int, limit: int):
     for i in pointer:
         entry = {}
         entry['name'] = i['b_name']
+
         entry['address'] = ''
         try:
             entry['address'] = i['formatted_address']
         except Exception:
             pass
+
         entry['rating'] = ''
         try:
             entry['rating'] = i['rating']
         except Exception:
             pass
+
         entry['phone_number'] = ''
         try:
             i['formatted_phone_number']
         except Exception:
             pass
+
+        try:
+            reviews = []
+
+            for db_review in i['reviews']:
+                review = {}
+                review['rating'] = db_review['rating']
+                review['text'] = db_review['text']
+                reviews.append(review)
+
+            entry['reviews'] = reviews
+        except Exception:
+            pass
+
         data.append(entry)
     return data
 
