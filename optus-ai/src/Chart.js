@@ -21,7 +21,7 @@ const BarChart = ({ data }) => {
       .padding(0.1);
 
     const xScale = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.frequency)])
+      .domain([0, d3.max(data, d => d.frequency) + 50])
       .range([0, width / 2]);
 
     // Create and style the bars
@@ -45,12 +45,27 @@ const BarChart = ({ data }) => {
       .attr('y', d => yScale(d.word) + yScale.bandwidth() / 2)
       .style('alignment-baseline', 'middle');
 
+    // Add frequencies to the right of each bar
+    svg.selectAll('.frequency-label')
+      .data(data)
+      .enter()
+      .append('text')
+      .attr('class', 'frequency-label')
+      .text(d => d.frequency)
+      .attr('x', d => xScale(d.frequency) + 10) // Adjust the position as needed
+      .attr('y', d => yScale(d.word) + yScale.bandwidth() / 2)
+      .style('alignment-baseline', 'middle')
+      .style('font-size', '12px')
+      .style('fill', 'white'); // Set text color to white
+    
     // Add axes
+    //Y-Axis
     svg.append('g')
       .call(d3.axisLeft(yScale));
 
-    svg.append('g')
-      .call(d3.axisBottom(xScale).ticks(20)); // Adjust the number of ticks as needed, x scale
+    //X-Axis
+    // svg.append('g')
+    //   .call(d3.axisBottom(xScale));
   }, [data]);
 
   return (
