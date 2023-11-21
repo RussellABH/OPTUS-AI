@@ -6,10 +6,13 @@ import './Home.css';
 import BarChart from './Chart';
 //import * as data1 from '../../analysis/2011_frequencies/january.json';
 import data1 from './january.json';
+import BertTopicGraph from './BertTopicGraph';
 
 const Home = () => {
   const [showViz1, setShowViz1] = React.useState(false);
   const [showViz2, setShowViz2] = React.useState(false);
+  const [showBertTopicGraph, setShowBertTopicGraph] = React.useState(false);
+
   const [selectedMonth, setSelectedMonth] = useState('January');
   const [selectedYear, setSelectedYear] = useState(2011);
   
@@ -23,13 +26,22 @@ const Home = () => {
 
  
   const handleViz1 = () => {
+    setShowBertTopicGraph(false);
     setShowViz2(false);
     setShowViz1(!showViz1);
-  }
+  };
+
   const handleViz2 = () => {
+    setShowBertTopicGraph(false);
     setShowViz1(false);
     setShowViz2(!showViz2);
-  }
+  };
+
+  const handleBertTopicGraph = () => {
+    setShowViz1(false);
+    setShowViz2(false);
+    setShowBertTopicGraph(!showBertTopicGraph);
+  };
   
   return (
     <div className='background'>
@@ -45,6 +57,10 @@ const Home = () => {
   
         <Fab onClick={handleViz2} variant="extended" size="large" aria-label="add" style={{margin: '5px', width: '200px', height: '50px' }}>
           Visualization 2
+        </Fab>
+
+        <Fab onClick={handleBertTopicGraph} variant="extended" size="large" aria-label="add" style={{ margin: '5px', width: '200px', height: '50px' }}>
+          Topics Over Time
         </Fab>
       </div>
       {showViz1 && (
@@ -77,6 +93,7 @@ const Home = () => {
         </div>
       )}
       {showViz1 && <BarChart data={dataArray1} />} 
+      {showBertTopicGraph && <BertTopicGraph />}
     </div>
   );
 }
