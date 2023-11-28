@@ -8,6 +8,26 @@ import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 
 const Rehab = () => {
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error('Error getting location:', error.message);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }, []); // Empty dependency array to run the effect only once
+
   return (
     <div className='background'>
       <header className="title">
