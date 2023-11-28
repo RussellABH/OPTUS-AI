@@ -3,10 +3,25 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from fastapi.responses import PlainTextResponse
 import os
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()  # take environment variables from .env.
 
 app = FastAPI()  # initialize fast api server
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # pulls from .env file (needs to be in directory you run uvicorn from)
 CONNECTION_STRING = os.getenv("CONNECTION_STRING")
