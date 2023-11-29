@@ -17,7 +17,7 @@ const Home = () => {
     <div className='background'>
       <header className="title">
         <p>OPTUS-AI</p>
-        <p>OPiate Tracker Using Social Media Signals and AI</p>
+        <p>Opiate Tracker Using Social Media Signals and AI</p>
       </header>
       <div className="buttons">
         <Fab onClick={handleViz1} variant="extended" size="large" aria-label="add" style={{width: '200px', height: '50px', marginRight: '10px'}}> 
