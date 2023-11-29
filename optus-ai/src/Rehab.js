@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect}  from 'react';
 import './Rehab.css';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
@@ -33,6 +34,26 @@ const Rehab = () => {
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
+
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
+        },
+        (error) => {
+          console.error('Error getting location:', error.message);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }, []); // Empty dependency array to run the effect only once
 
   return (
     <div className='background'>
