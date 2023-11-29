@@ -7,18 +7,15 @@
   align-items: center;
   justify-content: center;
 }
-
 .title {
   font-size: 2em;
   margin-bottom: 20px;
   color: white; /* Add your text color */
 }
-
 .search {
   display: flex;
   align-items: center;
 }
-
 .paper-container {
   border-radius: 20px;
   padding: 20px;
@@ -27,14 +24,12 @@
   background-color: #fff; /* Add your background color */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .rehab-tiles-container {
   display: flex;
   justify-content: space-around;
   gap: 20px;
   flex-wrap: wrap;
 }
-
 .rehab-card {
   border: 1px solid #ccc;
   padding: 15px;
@@ -43,21 +38,17 @@
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
 .rehab-card h2 {
   color: #333; /* Add your text color */
 }
-
 .rehab-card p {
   margin: 8px 0;
 }
-
 .limit-dropdown {
   display: flex;
   align-items: center;
   margin-top: 10px;
 }
-
 .limit-dropdown p {
   margin-right: 10px;
 }
