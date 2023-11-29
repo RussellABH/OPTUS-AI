@@ -55,7 +55,7 @@ async def db():
 
 
 @app.get("/nearest_rehab")
-async def nearestRehab(lat: int, lng: int, limit: int):
+async def nearestRehab(lat: float, lng: float, limit: int):
 
     pointer = rehab_centers.find({
         "loc": {
