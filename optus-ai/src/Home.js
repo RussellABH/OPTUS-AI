@@ -45,8 +45,8 @@ const Home = () => {
   };
   
   return (
-    <div className='background'>
-      <header className="title">
+    <div className='home-background'>
+      <header className="home-title">
       <img src={'/OPTUS-AI-FINAL-white.svg'} className="logo" alt="logo" style={{ width: '250px', height: 'auto', marginTop: '10px', marginBottom: '0px'}} />
         <p>OPiate Tracker Using Social Media Signals and AI</p>
       </header>
