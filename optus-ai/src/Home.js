@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+//import logo from '/OPTUS-AI-FINAL.svg';
+import './Home.css';
 import Fab from '@mui/material/Fab';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import './Home.css';
 import BarChart from './Chart';
-//import * as data1 from '../../analysis/2011_frequencies/january.json';
 import data1 from './january.json';
 import BertTopicGraph from './BertTopicGraph';
+import DistanceMap from './IntertopicDistanceMap';
 
 const Home = () => {
-  const [showViz1, setShowViz1] = React.useState(false);
-  const [showViz2, setShowViz2] = React.useState(false);
+  const [showTopicPerMonth, setShowTopicPerMonth] = React.useState(false);
+  const [showDistanceMap, setShowDistanceMap] = React.useState(false);
   const [showBertTopicGraph, setShowBertTopicGraph] = React.useState(false);
 
   const [selectedMonth, setSelectedMonth] = useState('January');
@@ -25,45 +26,45 @@ const Home = () => {
   const years = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020];
 
  
-  const handleViz1 = () => {
+  const handleTopicPerMonth = () => {
     setShowBertTopicGraph(false);
-    setShowViz2(false);
-    setShowViz1(!showViz1);
-  };
-
-  const handleViz2 = () => {
-    setShowBertTopicGraph(false);
-    setShowViz1(false);
-    setShowViz2(!showViz2);
+    setShowDistanceMap(false);
+    setShowTopicPerMonth(!showTopicPerMonth);
   };
 
   const handleBertTopicGraph = () => {
-    setShowViz1(false);
-    setShowViz2(false);
+    setShowTopicPerMonth(false);
+    setShowDistanceMap(false);
     setShowBertTopicGraph(!showBertTopicGraph);
+  };
+
+  const handleDistanceMap = () => {
+    setShowBertTopicGraph(false);
+    setShowTopicPerMonth(false);
+    setShowDistanceMap(!showDistanceMap);
   };
   
   return (
     <div className='background'>
       <header className="title">
-        <p>OPTUS-AI</p>
+      <img src={'/OPTUS-AI-FINAL-white.svg'} className="logo" alt="logo" style={{ width: '250px', height: 'auto', marginTop: '10px', marginBottom: '0px'}} />
         <p>OPiate Tracker Using Social Media Signals and AI</p>
       </header>
       <div className="buttons">
         {/* Visualization Buttons */}
-        <Fab onClick={handleViz1} variant="extended" size="large" aria-label="add" style={{margin: '5px', width: '200px', height: '50px' }}>
-          Visualization 1
+        <Fab onClick={handleTopicPerMonth} variant="extended" size="large" aria-label="add" style={{margin: '5px', width: '200px', height: '50px' }}>
+          Topics Per Month
         </Fab>
   
-        <Fab onClick={handleViz2} variant="extended" size="large" aria-label="add" style={{margin: '5px', width: '200px', height: '50px' }}>
-          Visualization 2
-        </Fab>
-
-        <Fab onClick={handleBertTopicGraph} variant="extended" size="large" aria-label="add" style={{ margin: '5px', width: '200px', height: '50px' }}>
+        <Fab onClick={handleBertTopicGraph} variant="extended" size="large" aria-label="add" style={{margin: '5px', width: '200px', height: '50px' }}>
           Topics Over Time
         </Fab>
+
+        <Fab onClick={handleDistanceMap} variant="extended" size="large" aria-label="add" style={{ margin: '5px', width: '200px', height: '50px' }}>
+          Intertopic Map
+        </Fab>
       </div>
-      {showViz1 && (
+      {showTopicPerMonth && (
         <div className="dropdowns">
           {/* Month Dropdown */}
           <Select
@@ -92,11 +93,11 @@ const Home = () => {
           </Select>
         </div>
       )}
-      {showViz1 && <BarChart data={dataArray1} />} 
+      {showTopicPerMonth && <BarChart data={dataArray1}/> }
       {showBertTopicGraph && <BertTopicGraph />}
+      {showDistanceMap && <DistanceMap />}
     </div>
   );
 }
 
 export default Home;
-/* Pass the data based on selectedMonth and selectedYear */
