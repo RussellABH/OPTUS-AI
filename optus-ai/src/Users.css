@@ -31,3 +31,13 @@
     max-width: 90vw;
     font-size: calc(5px + 2vmin);
 }
+
+.users-section 
+{
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+  }

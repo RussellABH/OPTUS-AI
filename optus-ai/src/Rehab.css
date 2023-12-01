@@ -11,10 +11,7 @@
   font-size: calc(20px + 2vmin);
   color: white; /* Add your text color */
 }
-.search {
-  display: flex;
-  align-items: center;
-}
+
 .paper-container {
   border-radius: 20px;
   padding: 20px;
@@ -47,6 +44,7 @@
   display: flex;
   align-items: center;
   margin-top: 10px;
+  justify-content: center;
 }
 .limit-dropdown p {
   margin-right: 10px;
