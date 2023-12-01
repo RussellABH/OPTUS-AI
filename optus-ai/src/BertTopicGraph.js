@@ -4,7 +4,7 @@ import React from 'react';
 const BertTopicGraph = () => {
     return (
         <iframe
-            src="/bert_topics_over_time.html"
+            src="/graphs/bert_topics_over_time.html"
             title="Bert Topic Graph"
             width="100%"
             height="500px"

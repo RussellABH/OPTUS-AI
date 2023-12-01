@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import Logo from '../OPTUS-AI.png'
 import './Navbar.css'
 
 const Navbar = () => {
@@ -8,7 +7,13 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container">
         <div className="logo">
-        <img  style={{ width: "25%", height: "25%" }} src={Logo} alt="OPTUS-AI Logo"/>
+        <NavLink to="/">
+            <img
+              src="/images/OPTUS-AI.png"
+              style={{ width: '25%', height: '25%' }}
+              alt="OPTUS-AI Logo"
+            />
+          </NavLink>
         </div>
         <div className="nav-elements">
           <ul>
@@ -17,6 +22,9 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink to="/rehab">Rehab Centers</NavLink>
+            </li>
+            <li>
+              <NavLink to="/users">User Analysis</NavLink>
             </li>
             <li>
               <NavLink to="/about">About Us</NavLink>
