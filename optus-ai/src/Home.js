@@ -5,8 +5,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import BarChart from './Chart';
 import data1 from './january.json';
-import BertTopicGraph from './BertTopicGraph';
-import DistanceMap from './IntertopicDistanceMap';
+import BertTopicGraph from './components/BertTopicGraph';
+import DistanceMap from './components/IntertopicDistanceMap';
 
 const Home = () => {
   const [showTopicPerMonth, setShowTopicPerMonth] = React.useState(false);
