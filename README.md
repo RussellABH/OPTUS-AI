@@ -25,11 +25,11 @@ Home.js should eventually be able to make an api call based on the 2 dropdown bu
 ### Visualizations
 For each visualization, they are each within the `analyis` folder, seperated by the dev who worked on it. 
 There is no garunteed organization within each folder, however they are typically a set of jupyter notebooks. They are here for documentation 
-of how we generated each visualization. If you wish to run them yourself, you will have to download the data and set the file paths \
+and to help others who wish to create their own. If you wish to run them yourself, you will have to download the data and set the file paths
 accordingly. 
 
 ### Data
-For access to the raw data that we used, please contact Prof. Manikonda: manikl(at)rpi.edu
+The raw data is hosted on a Box folder. For access, please contact Prof. Manikonda: manikl(at)rpi.edu
 
 ### FastAPI and MongoDB Setup
 First, navigate to the backend folder and install the required packages using:
