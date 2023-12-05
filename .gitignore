@@ -139,3 +139,6 @@ optus-ai-env/
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#ds store
+.DS_Store
