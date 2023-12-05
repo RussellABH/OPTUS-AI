@@ -141,4 +141,4 @@ optus-ai-env/
 .pnp.*
 
 #ds store
-*/.DS_Store
+.DS_Store
