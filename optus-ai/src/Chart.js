@@ -63,9 +63,6 @@ const BarChart = ({ data }) => {
     svg.append('g')
       .call(d3.axisLeft(yScale));
 
-    //X-Axis
-    // svg.append('g')
-    //   .call(d3.axisBottom(xScale));
   }, [data]);
 
   return (
@@ -76,6 +73,3 @@ const BarChart = ({ data }) => {
 };
 
 export default BarChart;
-
-
- //style={{alignitems: 'center', justifycontent: 'start'}}>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import logo from '/OPTUS-AI-FINAL.svg';
 import './Home.css';
 import Fab from '@mui/material/Fab';
 import Select from '@mui/material/Select';
@@ -52,15 +51,15 @@ const Home = () => {
       </header>
       <div className="buttons">
         {/* Visualization Buttons */}
-        <Fab onClick={handleTopicPerMonth} variant="extended" size="large" aria-label="add" style={{margin: '5px', width: '200px', height: '50px' }}>
-          Topics Per Month
+        <Fab onClick={handleTopicPerMonth} variant="extended" size="large" aria-label="add" style={{margin: '5px', width: '250px', height: '50px' }}>
+          Frequencies Per Month
         </Fab>
   
-        <Fab onClick={handleBertTopicGraph} variant="extended" size="large" aria-label="add" style={{margin: '5px', width: '200px', height: '50px' }}>
+        <Fab onClick={handleBertTopicGraph} variant="extended" size="large" aria-label="add" style={{margin: '5px', width: '250px', height: '50px' }}>
           Topics Over Time
         </Fab>
 
-        <Fab onClick={handleDistanceMap} variant="extended" size="large" aria-label="add" style={{ margin: '5px', width: '200px', height: '50px' }}>
+        <Fab onClick={handleDistanceMap} variant="extended" size="large" aria-label="add" style={{ margin: '5px', width: '250px', height: '50px' }}>
           Intertopic Map
         </Fab>
       </div>
