@@ -122,6 +122,17 @@ dist
 # TernJS port file
 .tern-port
 
+#virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+optus-ai-env/
+
+
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
@@ -131,3 +142,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#ds store
+.DS_Store
