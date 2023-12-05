@@ -1,10 +1,10 @@
-.background
+.home-background
 {
   background-color: #282c34;
   min-height: 100vh;
 }
 
-.title 
+.home-title 
 {
   min-height: 20vh;
   display: flex;
@@ -15,6 +15,15 @@
   color: white;
 }
 .buttons
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.dropdowns
 {
   display: flex;
   flex-direction: row;

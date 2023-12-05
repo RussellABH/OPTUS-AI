@@ -1,0 +1,43 @@
+.users-background
+{
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.users-title 
+{
+    font-size: calc(20px + 2vmin);
+}
+
+.users-header
+{
+    max-width: 90vw;  
+}
+
+.users-name
+{
+    max-width: 90vw;  
+    margin-bottom: 0px;
+}
+
+.users-description
+{
+    max-width: 90vw;
+    font-size: calc(5px + 2vmin);
+}
+
+.users-section 
+{
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+  }
