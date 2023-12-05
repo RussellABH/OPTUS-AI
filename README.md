@@ -1,6 +1,12 @@
 # OPTUS-AI
 Our goal is to raise awareness on the opioid crisis through creating a one-stop web application that tracks and displays social media discourse using novel Natural Language Processing techniques. 
 
+## Organization
+`main` branch has the up-to-date website and backend.
+
+### Visualizations
+For each visualization, 
+
 ### FastAPI Backend
 Optus-AI runs FastAPI on the backend. To run the server locally, use the command:
 
