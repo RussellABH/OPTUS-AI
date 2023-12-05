@@ -1,6 +1,8 @@
 # OPTUS-AI
 Our goal is to raise awareness on the opioid crisis through creating a one-stop web application that tracks and displays social media discourse using novel Natural Language Processing techniques. 
 
+Please see the presentation, `OPTUS-AI Presentation.pptx`, for a brief overview of the work we did this semester.
+
 ## Setup
 ### Frontend
 This is a React based web application.
@@ -11,7 +13,7 @@ To run it:
 - type "npm start" to start the application
 - the website will open on http://localhost:3000/
 
-### FastAPI and MongoDB Setup
+### FastAPI and MongoDB
 First, navigate to the backend folder and install the required packages using:
 ```
 pip install -r requirements.txt
@@ -21,6 +23,7 @@ Optus-AI runs FastAPI on the backend. To run the server locally, run the followi
 uvicorn backend.server:app --reload
 ```
 The following command line messages will specify a link to go to, which leads to the basic endpoint on the local server.
+
 #### MongoDB Connection
 Edit the .env file and paste in the MongoDB connection string. It is recommended to use MongoDB Atlas to upload and view data.
 
