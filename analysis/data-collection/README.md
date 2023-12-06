@@ -1,0 +1,5 @@
+# Overview
+scrape_drugs_forum.py collects every comment under every post for each of the 11 commonly abused opioids on the web page https://drugs-forum.com/forums/opiates-opioids.33/. This code works by looping through a list of these opioids and creating a text file for each of them that contains all the comments under each post (in order) for that opioid. The function parsePost() can be used to append every comment under that post to a list called "data". Calling parsePost() with a string url of any other post on the website will also aggregate all comments under that individual post and add them to the "data" list. This code should continue to work using BeautifulSoup to access HTML tags unless drugs-forum decides to change their website structure.
+
+# Usage
+Simply run scrape_drugs_forum.py to generate all 11 text files of opioid comments data. Once completed, the program will terminate and you can export minified json data through free online tools.
