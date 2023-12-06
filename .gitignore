@@ -1,4 +1,8 @@
-# Yashas files
+# Don't upload saved BERT stuff
+*-model
+*.pkl
+
+# Don't upload mac folder files
 .DS_Store
 
 # Logs
