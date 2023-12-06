@@ -46,7 +46,7 @@ and to help others who wish to create their own. If you wish to run them yoursel
 accordingly. 
 
 ### Data
-The raw data is hosted on a Box folder. For access, please contact Prof. Manikonda: manikl(at)rpi.edu
+The raw data is hosted on a Box folder. For access, please contact Prof. Manikonda: manikl(at)rpi.edu. To generate the opioid data for drugs_forum, please see the README file under analysis folder.
 
 ### Backend
 To find a list of all endpoints, see the [server.py](backend/server.py) file.
