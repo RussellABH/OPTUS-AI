@@ -7,7 +7,7 @@ const DistanceMap = () => {
             src="/graphs/topics_100_min.html"
             title="Intertopic Distance Map"
             width="100%"
-            height="500px"
+            height="1000px"
             frameBorder="0"
         />
     );

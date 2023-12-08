@@ -93,7 +93,7 @@ const Home = () => {
         </div>
       )}
       {showTopicPerMonth && <BarChart data={dataArray1}/> }
-      {showBertTopicGraph && <BertTopicGraph />}
+      {showBertTopicGraph && <BertTopicGraph style={{margin: 'auto'}}/>}
       {showDistanceMap && <DistanceMap />}
     </div>
   );
