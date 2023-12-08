@@ -1,0 +1,21 @@
+.error-background
+{
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.error-title 
+{
+  font-size: calc(20px + 2vmin);
+}
+
+.error-description
+{
+  max-width: 90vw;
+}
