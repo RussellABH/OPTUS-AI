@@ -10,7 +10,7 @@ To run it:
 - download node.js https://nodejs.org/en
 - pull the code from the repo https://github.com/RussellABH/OPTUS-AI
 - cd into the optus-ai directory
-- type "npm start" to start the application
+- run `npm install` then `npm start` to start the application
 - the website will open on http://localhost:3000/
 
 ### FastAPI and MongoDB
