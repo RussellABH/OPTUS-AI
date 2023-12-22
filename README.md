@@ -25,7 +25,7 @@ uvicorn backend.server:app --reload
 The following command line messages will specify a link to go to, which leads to the basic endpoint on the local server.
 
 #### MongoDB Connection
-Edit the .env file and paste in the MongoDB connection string. It is recommended to use MongoDB Atlas to upload and view data.
+Add a .env file to the root dir with a `CONNECTION_STRING` value of your mongoDB connection string. It is recommended to use MongoDB Atlas to upload and view data.
 
 
 ## Organization
